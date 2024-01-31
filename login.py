@@ -10,6 +10,7 @@ class Account():
         self.path = "./accounts"
         self.dir = os.listdir(self.path)
 
+# Creates a new user in a folder called accounts
     def newUser(self):
         self.username = input("Username:")
         while True:
@@ -28,12 +29,13 @@ class Account():
             else:
                 print("Please Try Again!")
 
-
+# Encrypts password and returns it
     def passenCrypt(self,pw):
         bytes = pw.encode('utf-8')
         salt = bcrypt.gensalt()
         return bcrypt.hashpw(bytes,salt)
 
+# Takes given password and checks it against the encrypted password - This needs some serious work...
     def unlock(self,uname):
         uname = open(f"./accounts/{uname}","r+")
         password = uname.read()
