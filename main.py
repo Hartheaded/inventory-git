@@ -34,7 +34,7 @@ LOGIN:
 
 HOMEPAGE:
 '''
-from Login import Account
+from login import Account
 import os
 usracct = Account()
 acctpath = "./accounts"
