@@ -1,6 +1,6 @@
 import bcrypt
 import os
-import glob
+
 class Account():
 
 
