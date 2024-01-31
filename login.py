@@ -36,7 +36,6 @@ class Account():
 
 # Takes given password and checks it against the encrypted password
     def unlock(self,uname):
-        print(uname)
         uname = open(f"./accounts/{uname}","r+")
         password = uname.read()
         password = bytes(password, encoding="utf-8")
@@ -68,7 +67,6 @@ class Account():
 # Function to log user in. Requires listaccounts and unlock to function
     def login(self):
         accountlist = Account.listaccounts(())
-        print(accountlist)
         choice = input("Username: ")
         if choice.isnumeric():
             if Account.unlock((), accountlist[int(choice)-1]) == True:
