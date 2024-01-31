@@ -34,7 +34,7 @@ class Account():
         salt = bcrypt.gensalt()
         return bcrypt.hashpw(bytes,salt)
 
-# Takes given password and checks it against the encrypted password - This needs some serious work...
+# Takes given password and checks it against the encrypted password
     def unlock(self,uname):
         print(uname)
         uname = open(f"./accounts/{uname}","r+")
@@ -44,6 +44,7 @@ class Account():
         result = bcrypt.checkpw(attempt,password)
         return result
 
+#Creates a list of currently existing accounts and returns it for further use
     def listaccounts(self):
         acctpath = "./accounts"
         dir = os.listdir(acctpath)
@@ -64,6 +65,7 @@ class Account():
                         accountlist.append(i)
                     return accountlist
 
+# Function to log user in. Requires listaccounts and unlock to function
     def login(self):
         accountlist = Account.listaccounts(())
         print(accountlist)
