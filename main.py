@@ -36,14 +36,24 @@ HOMEPAGE:
 '''
 from login import Account
 import os
-usracct = Account()
-acctpath = "./accounts"
-dir = os.listdir(acctpath)
 
-if len(dir) == 0:
-    usracct.newUser()
-else:
-    for i in dir:
-        print(i)
+while True:
+    decision = input("Please input numeric selection\n1. login\n2. create account\nresponse: ")
+    if decision not in ['1','2']:
+        print("Invalid input.")
+    elif decision == '2':
+        Account.newUser(())
+    else:
+        break
 
-Account().login()
+
+
+while True:
+    loginattempt = Account.login(())
+    if loginattempt.isnumeric():
+        print("Numeric")
+        break
+    elif loginattempt.isalpha():
+        print("Alphanumeric")
+        break
+

@@ -12,18 +12,17 @@ class Account():
 
 # Creates a new user in a folder called accounts
     def newUser(self):
-        self.username = input("Username:")
+        self.username = input("New Username:")
         while True:
-            password1 = input("Password: ")
+            password1 = input("New Password: ")
             password2 = input("Please repeat password: ")
             if password1 == password2:
                 self.password = password1
                 save_path = "./accounts"
                 compName = os.path.join(save_path,self.username)
                 newusr = open(compName,"w+")
-                newusr.write(str(self.passenCrypt(self.password)))
-                newusr.flush()
-                os.fsync(newusr)
+                password = str(self.passenCrypt(self.password))
+                newusr.write(password[2:-1])
                 newusr.close()
                 break
             else:
@@ -37,21 +36,52 @@ class Account():
 
 # Takes given password and checks it against the encrypted password - This needs some serious work...
     def unlock(self,uname):
+        print(uname)
         uname = open(f"./accounts/{uname}","r+")
         password = uname.read()
-        attempt = input("Password: ")
-        attemptbytes = attempt.encode("utf-8")
-        print(f"{password}\n{attemptbytes}")
-        result = bcrypt.checkpw(attemptbytes,bytes(password))
+        password = bytes(password, encoding="utf-8")
+        attempt = input("Password: ").encode('utf-8')
+        result = bcrypt.checkpw(attempt,password)
         return result
 
-    def login(self):
+    def listaccounts(self):
+        acctpath = "./accounts"
+        dir = os.listdir(acctpath)
         check = False
+
         while check == False:
-            account = input("Username: ")
-            if os.path.isfile(f"./accounts/{account}"):
-                self.unlock(account)
-                break
+
+            if len(dir) == 0:
+                self.newUser()
+                quit()
             else:
-                input("Password: ")
-                print("Login Credentials Invalid.")
+                accountlist = []
+                while True:
+                    count = 0
+                    for i in dir:
+                        count += 1
+                        print(f"{count}. {i}")
+                        accountlist.append(i)
+                    return accountlist
+
+    def login(self):
+        accountlist = Account.listaccounts(())
+        print(accountlist)
+        choice = input("Username: ")
+        if choice.isnumeric():
+            if Account.unlock((), accountlist[int(choice)-1]) == True:
+                check = choice
+                print("Login successful!")
+                return check
+            else:
+                print("Login credentials invalid. Please try again.")
+        elif choice.isalpha():
+            if Account.unlock((), choice) == True:
+                check = choice
+                print("Login successful!")
+                return check
+        else:
+            print("Invalid username. Please try again.")
+
+
+
