@@ -10,6 +10,8 @@ class Account():
         self.path = "./accounts"
         self.dir = os.listdir(self.path)
 
+    def __new__(cls):
+        return self.username
 # Creates a new user in a folder called accounts
     def newUser(self):
         self.username = input("New Username:")
@@ -70,7 +72,7 @@ class Account():
         choice = input("Username: ")
         if choice.isnumeric():
             if Account.unlock((), accountlist[int(choice)-1]) == True:
-                check = choice
+                check = accountlist[int(choice)-1]
                 print("Login successful!")
                 return check
             else:
