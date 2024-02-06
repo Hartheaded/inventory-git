@@ -2,10 +2,14 @@ from login import Account
 from logs import LogFunctions
 import os
 
-test = LogFunctions()
-print(test.modEntry("HDMI","6",1,"tom"))
+def options(numlist):
+    numlist.split(',')
+    while True
+        selection = input("Please input selection. 1-9")
+        if not selection.isnumeric():
+            print("Please ")
 
-'''
+
 while True:
     dir = os.listdir('accounts')
     if len(dir) == 0:
@@ -22,7 +26,7 @@ while True:
 
 
 while True:
-    loginattempt = Account.login(())
-    print(loginattempt)
-    break
-'''
+    user = Account.login(())
+    print(user)
+    result = options("1,2,3")
+

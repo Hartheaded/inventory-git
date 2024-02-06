@@ -12,31 +12,32 @@ class Account():
 
     def __new__(cls):
         return self.username
-# Creates a new user in a folder called accounts
+
+    # Creates a new user in a folder called accounts
     def newUser(self):
-        self.username = input("New Username:")
+        username = input("New Username:")
+
         while True:
             password1 = input("New Password: ")
             password2 = input("Please repeat password: ")
             if password1 == password2:
-                self.password = password1
                 save_path = "./accounts"
-                compName = os.path.join(save_path,self.username)
+                compName = os.path.join(save_path,username)
                 newusr = open(compName,"w+")
-                password = str(self.passenCrypt(self.password))
+                password = str(Account.passenCrypt((),password1))
                 newusr.write(password[2:-1])
                 newusr.close()
                 break
             else:
                 print("Please Try Again!")
 
-# Encrypts password and returns it
+    # Encrypts password and returns it
     def passenCrypt(self,pw):
         bytes = pw.encode('utf-8')
         salt = bcrypt.gensalt()
         return bcrypt.hashpw(bytes,salt)
 
-# Takes given password and checks it against the encrypted password
+    # Takes given password and checks it against the encrypted password
     def unlock(self,uname):
         uname = open(f"./accounts/{uname}","r+")
         password = uname.read()
@@ -45,7 +46,7 @@ class Account():
         result = bcrypt.checkpw(attempt,password)
         return result
 
-#Creates a list of currently existing accounts and returns it for further use
+    #Creates a list of currently existing accounts and returns it for further use
     def listaccounts(self):
         acctpath = "./accounts"
         dir = os.listdir(acctpath)
