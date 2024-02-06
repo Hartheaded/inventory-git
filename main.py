@@ -5,7 +5,6 @@ import os
 test = LogFunctions()
 print(test.modEntry("HDMI","6",1,"tom"))
 
-
 '''
 while True:
     dir = os.listdir('accounts')

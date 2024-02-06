@@ -17,16 +17,18 @@ class LogFunctions():
         pass
 
     def modEntry(self,cable,length,change,user):
-        x = ''
-        with open("logs/history.log", 'a+') as file:
-            for entry in file:
-                if cable in entry[0] and length in entry[1]:
-                    x = int(entry[2]) + change
 
-        with open("logs/inventory.log", 'a+') as file:
-            for line in file:
-                if f'{cable},{length},' in line:
-                    pass
+        with open("logs/inventory.log", 'r+')as infile:
+            data = infile.readlines()
+            count = -1
+            for i in data:
+                count += 1
+                if (cable and length) in i:
+                    infile.close()
+                    infile = open("logs/inventory.log", 'w')
+                    data[count] = f"{cable},{length},{change + int(i.split(',')[2][:-1])}\n"
+                    infile.writelines(data)
+
 
 
 
