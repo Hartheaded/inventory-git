@@ -1,6 +1,12 @@
 from login import Account
+from logs import LogFunctions
 import os
 
+test = LogFunctions()
+print(test.modEntry("HDMI","6",1,"tom"))
+
+
+'''
 while True:
     dir = os.listdir('accounts')
     if len(dir) == 0:
@@ -20,3 +26,4 @@ while True:
     loginattempt = Account.login(())
     print(loginattempt)
     break
+'''
